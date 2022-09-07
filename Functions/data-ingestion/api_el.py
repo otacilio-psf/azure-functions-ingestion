@@ -28,8 +28,9 @@ def get_file_system():
 
 class ApiEL():
 
-    def __init__(self, url):
+    def __init__(self, url, index):
         self._url = url
+        self._index = index
         self._input_file = io.BytesIO()
 
     def _extract(self):
@@ -44,8 +45,8 @@ class ApiEL():
     def _load(self):
         try:
             fs = get_file_system()
-            file_name = f"base_{int(time.time())}.json"
-            file_client = fs.get_file_client(f"raw/{file_name}")
+            file_name = f"{self._index}_{int(time.time())}.json"
+            file_client = fs.get_file_client(f"raw/{self._index}/{file_name}")
             file_client.upload_data(self._input_file.getvalue(), overwrite=True)
             return_msg = f"{file_name}"
             return {

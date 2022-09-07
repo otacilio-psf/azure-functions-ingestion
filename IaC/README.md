@@ -1,3 +1,7 @@
+# To do
+- Fix sp access to datalake, seems that didn't worked with ACL, I had to manual give a RBAC role in the data lake
+- Function env var - need to check
+
 # Credentials 
 
 ## Terraform auth
