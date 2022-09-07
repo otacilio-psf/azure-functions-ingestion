@@ -23,7 +23,7 @@ az role assignment create --assignee $TF_VAR_SP_TERRAFORM_ID --role "Storage Blo
 ## Create Datalake SP
 
 ```
-SP_DATA_LAKE_CONTRIBUTOR_INFO=$(az ad sp create-for-rbac --name academy-datalake-contributor --role Reader)
+SP_DATA_LAKE_CONTRIBUTOR_INFO=$(az ad sp create-for-rbac --name sp-datalake-contributor --role Reader)
 
 export TF_VAR_SP_DATA_LAKE_CONTRIBUTOR_ID=$(echo $SP_DATA_LAKE_CONTRIBUTOR_INFO | jq -r ".appId")
 
