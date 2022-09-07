@@ -10,5 +10,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     index = req.params.get('index')
 
     logging.info(f'Requested for {index}')
-    response = el.ApiEL().start()
+    url = "https://dadosabertos.nubank.com.br/taxasCartoes/itens"
+    response = el.ApiEL(url).start()
+    response["index"] = index
+
     return func.HttpResponse(json.dumps(response), status_code=200)
