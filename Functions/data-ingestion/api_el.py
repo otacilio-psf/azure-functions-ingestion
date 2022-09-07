@@ -64,4 +64,6 @@ class ApiEL():
         return self._load()
 
 if __name__ == "__main__":
-    pass
+    url = "https://dadosabertos.nubank.com.br/taxasCartoes/itens"
+    r = ApiEL(url).start()
+    print(r)
