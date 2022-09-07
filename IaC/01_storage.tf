@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "stga_datalake" {
-  name                     = "stga${var.project_initials}01"
+  name                     = "adls2${var.project_initials}01"
   resource_group_name      = azurerm_resource_group.project.name
   location                 = azurerm_resource_group.project.location
   account_tier             = "Standard"
@@ -34,7 +34,7 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "datalake" {
 }
 
 resource "azurerm_storage_account" "stga_funtion" {
-  name                     = "stga${var.project_initials}functionapp01"
+  name                     = "blob${var.project_initials}functionapp01"
   resource_group_name      = azurerm_resource_group.project.name
   location                 = azurerm_resource_group.project.location
   account_tier             = "Standard"

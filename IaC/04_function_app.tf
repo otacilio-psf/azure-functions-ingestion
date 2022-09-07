@@ -19,6 +19,28 @@ resource "azurerm_linux_function_app" "func" {
     application_stack {
         python_version = "3.9"
     }
+    
+  }
+
+  identity {
+      type = "SystemAssigned"
   }
 }
 
+resource "azurerm_key_vault_access_policy" "funct_app" {
+  key_vault_id = azurerm_key_vault.akv.id
+  tenant_id    = azurerm_linux_function_app.func.identity[0].tenant_id
+  object_id    = azurerm_linux_function_app.func.identity[0].principal_id
+
+  key_permissions = [
+    "Get", "List", 
+  ]
+
+  secret_permissions = [
+    "Set", "Get",
+  ]
+
+  depends_on = [
+    azurerm_linux_function_app.func
+  ]
+}
