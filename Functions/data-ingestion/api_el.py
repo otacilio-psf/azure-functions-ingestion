@@ -2,6 +2,11 @@ from azure.storage.filedatalake import DataLakeServiceClient
 from azure.identity             import ClientSecretCredential
 import logging
 import requests
+import os
+
+tenant_id = os.getenv('AZURE_STORAGE_TENANT_ID')
+client_id = os.getenv('AZURE_STORAGE_CLIENT_ID')
+client_secret = os.getenv('AZURE_STORAGE_CLIENT_SECRET')
 
 def get_file_system():
     pass

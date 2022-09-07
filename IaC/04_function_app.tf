@@ -15,11 +15,17 @@ resource "azurerm_linux_function_app" "func" {
   storage_account_access_key = azurerm_storage_account.stga_funtion.primary_access_key
   service_plan_id            = azurerm_service_plan.service_plan_linux.id
 
+  app_settings = {
+    AZURE_STORAGE_TENANT_ID     = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault.akv.vault_uri}secrets/${azurerm_key_vault_secret.datalake_access_sp_id.name}/)"
+    AZURE_STORAGE_CLIENT_ID     = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault.akv.vault_uri}secrets/${azurerm_key_vault_secret.datalake_access_sp_secret.name}/)"
+    AZURE_STORAGE_CLIENT_SECRET = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault.akv.vault_uri}secrets/${azurerm_key_vault_secret.datalake_access_sp_tenant.name}/)"
+  }
+
   site_config {
     application_stack {
         python_version = "3.9"
     }
-    
+  
   }
 
   identity {
