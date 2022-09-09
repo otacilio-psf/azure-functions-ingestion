@@ -1,12 +1,9 @@
-# To do
-- Function work
-
 # Terraform init
 
 `init_project.sh` will create the necessary service principal for Terraform and for Data lake contributor
 
 ```
-export TF_VAR_PROJECT_NAME="otacilio-poc"
+export TF_VAR_PROJECT_NAME="<project-name>"
 export TF_VAR_LOCATION="West Europe"
 
 az logout
