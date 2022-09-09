@@ -46,12 +46,13 @@ class ApiEL():
         try:
             fs = get_file_system()
             file_name = f"{self._api_name}_{int(time.time())}.json"
-            file_client = fs.get_file_client(f"raw/{self._api_name}/{file_name}")
+            file_path = f"raw/{self._api_name}/{file_name}"
+            file_client = fs.get_file_client(file_path)
             file_client.upload_data(self._in_memory_file.getvalue(), overwrite=True)
-            return_msg = f"{file_name}"
+            
             return {
                 "status": "success",
-                "menssage": return_msg
+                "menssage": file_path
             }
         except Exception as e:
             logging.error(e)
