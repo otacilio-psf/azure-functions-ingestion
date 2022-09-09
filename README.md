@@ -92,10 +92,15 @@ Some requirements are expected and created by IaC routine:
 
 ### Steps
 
-1. Click on Azure extension > Local Project > Deploy
-2. Follow the options:
+1. Open VSCODE on Functions folder
+2. Click on Azure extension > Local Project > Deploy
+3. Follow the options:
     - Login if you haven't
     - Select the Function app
     - Click on confirmation
 
 ![Deploy 1](.attachments/az-func-deploy-1.png)
+
+### Automate deployment
+
+We can use Github Actions to Continuous delivery our Azure Function, please check [docs](https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-github-actions?tabs=python).
