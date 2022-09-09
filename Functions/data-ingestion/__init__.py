@@ -19,13 +19,14 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     body_content = req.get_json()
 
-    api_name = body_content.get('api_name')
-    url = body_content.get('url')
+    api_name = body_content['api_name']
+    url = body_content['url']
     
-    if (api_name != str()) or (url != str()):
+    if (not isinstance(api_name, str)) or (not isinstance(url, str)):
         response = {
             "status": "fail",
-            "menssage": "api_name or url invalid"
+            "menssage": "api_name or url invalid",
+            "body": body_content
         }
         return func.HttpResponse(json.dumps(response), status_code=400)
 
@@ -34,6 +35,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     if response["status"] == "success":
         return func.HttpResponse(json.dumps(response), status_code=200)
     elif response["status"] == "fail":
-        return func.HttpResponse(json.dumps(response), status_code=400)
-    else:
         return func.HttpResponse(json.dumps(response), status_code=500)
+    else:
+        return func.HttpResponse(json.dumps(response), status_code=555)
