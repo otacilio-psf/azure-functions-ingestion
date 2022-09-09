@@ -13,16 +13,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     if req_method.upper() == 'GET':
         response = {
-            "docs": """
-            API Extract and Load
-            GET: Will get this menssage
-            POST: Will ingest the json from a API content if the following body is posted
-            {
-                "api_name": "<api-name>",
-                "url": "<end-point-url>"
-            }
-            api_name: need to be a path like
-            """
+            "docs": "check how to use on https://github.com/otacilio-psf/azure-functions-ingestion#sample-request"
         }
         return func.HttpResponse(json.dumps(response), status_code=200)
 
