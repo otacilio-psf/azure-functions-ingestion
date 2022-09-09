@@ -8,28 +8,37 @@ from . import api_el as el
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
 
-    index = req.params.get('index')
+    req_method = req.method
+    logging.info(f'Recived a {req_method} request')
 
-    logging.info(f'Requested for {index}')
+    if req_method.upper() == 'GET':
+        response = {
+            "docs": """
+            API Extract and Load
+            GET: Will get this menssage
+            POST: Will ingest the json from a API content if the following body is posted
+            {
+                "api_name": "<api-name>",
+                "url": "<end-point-url>"
+            }
+            api_name: need to be a path like
+            """
+        }
+        return func.HttpResponse(json.dumps(response), status_code=200)
+
+    body_content = req.get_json()
+
+    api_name = body_content.get('api_name')
+    url = body_content.get('url')
     
-    if index == 'nubank':
-        url = 'https://dadosabertos.nubank.com.br/taxasCartoes/itens'
-        response = el.ApiEL(url, index).start()
-    elif index == 'bradesco':
-        url = 'https://openapi.bradesco.com.br/bradesco/dadosabertos/taxasCartoes/itens'
-        response = el.ApiEL(url, index).start()
-    elif index == 'dolar':
-        start_date = '08-25-2019' #first date in taxs (nubank)
-        final_date = date.today().strftime("%m-%d-%Y")
-        url = f"https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@dataInicial='{start_date}'&@dataFinalCotacao='{final_date}'&$format=json"
-        response = el.ApiEL(url, index).start()
-    else:
+    if (api_name != str()) or (url != str()):
         response = {
             "status": "fail",
-            "menssage": "unknow mode"
-             }
+            "menssage": "api_name or url invalid"
+        }
+        return func.HttpResponse(json.dumps(response), status_code=400)
 
-    response["index"] = index
+    response = el.ApiEL(url, api_name).start()
 
     if response["status"] == "success":
         return func.HttpResponse(json.dumps(response), status_code=200)

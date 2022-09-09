@@ -28,26 +28,26 @@ def get_file_system():
 
 class ApiEL():
 
-    def __init__(self, url, index):
+    def __init__(self, url, api_name):
         self._url = url
-        self._index = index
-        self._input_file = io.BytesIO()
+        self._api_name = api_name
+        self._in_memory_file = io.BytesIO()
 
     def _extract(self):
         r = requests.get(self._url, stream=True)
         if r.status_code == requests.codes.OK:
             for part in r.iter_content(chunk_size=256):
-                self._input_file.write(part)
+                self._in_memory_file.write(part)
         else:
             r.raise_for_status()
-        self._input_file.seek(0)
+        self._in_memory_file.seek(0)
 
     def _load(self):
         try:
             fs = get_file_system()
-            file_name = f"{self._index}_{int(time.time())}.json"
-            file_client = fs.get_file_client(f"raw/{self._index}/{file_name}")
-            file_client.upload_data(self._input_file.getvalue(), overwrite=True)
+            file_name = f"{self._api_name}_{int(time.time())}.json"
+            file_client = fs.get_file_client(f"raw/{self._api_name}/{file_name}")
+            file_client.upload_data(self._in_memory_file.getvalue(), overwrite=True)
             return_msg = f"{file_name}"
             return {
                 "status": "success",
@@ -66,5 +66,5 @@ class ApiEL():
 
 if __name__ == "__main__":
     url = "https://dadosabertos.nubank.com.br/taxasCartoes/itens"
-    r = ApiEL(url).start()
+    r = ApiEL(url, "nubank").start()
     print(r)
