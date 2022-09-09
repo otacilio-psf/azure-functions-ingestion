@@ -22,7 +22,8 @@ def get_file_system():
             client_secret=os.getenv('AZURE_STORAGE_SECRET_ID')
         )
     except Exception as e:
-        logging.error(e)
+        logging.error(str(e))
+        raise Exception
 
     account_name = os.getenv('AZURE_STORAGE_ACCOUNT_NAME')
     container_name = os.getenv('AZURE_STORAGE_CONTAINER_NAME')
@@ -32,7 +33,7 @@ def get_file_system():
         adls = DataLakeServiceClient(account_url=account_url, credential=credential)
         return adls.get_file_system_client(file_system=container_name)
     except Exception as e:
-        logging.error(e)
+        logging.error(str(e))
         raise Exception
 
 
@@ -65,10 +66,10 @@ class ApiEL():
                 "menssage": file_path
             }
         except Exception as e:
-            logging.error(e)
+            logging.error(str(e))
             return {
                 "status": "error",
-                "menssage": e
+                "menssage": str(e)
             }
 
     def start(self):
@@ -77,5 +78,5 @@ class ApiEL():
 
 if __name__ == "__main__":
     url = "https://dadosabertos.nubank.com.br/taxasCartoes/itens"
-    r = ApiEL(url, "nubank").start()
+    r = ApiEL(url, "nubank_app").start()
     print(r)
