@@ -21,7 +21,7 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "datalake" {
 resource "azurerm_role_assignment" "rbac_dl_contributor" {
   scope                = azurerm_storage_account.stga_datalake.id
   role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = var.SP_DATA_LAKE_CONTRIBUTOR_ID
+  principal_id         = var.SP_DATA_LAKE_CONTRIBUTOR_OBJ_ID
 }
 
 

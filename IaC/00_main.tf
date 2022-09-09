@@ -5,6 +5,7 @@ variable "SP_TERRAFORM_ID" {}
 variable "SP_TERRAFORM_SECRET" {}
 variable "SP_DATA_LAKE_CONTRIBUTOR_ID" {}
 variable "SP_DATA_LAKE_CONTRIBUTOR_SECRET" {}
+variable "SP_DATA_LAKE_CONTRIBUTOR_OBJ_ID" {}
 variable "PROJECT_NAME" {}
 variable "LOCATION" {
   default = "West Europe"
