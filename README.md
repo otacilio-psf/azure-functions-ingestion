@@ -2,6 +2,21 @@
 
 The main goal of this repository is demonstrate how you can use Azure Functions to ingest data into your Azure Data Lake.
 
+## Table of contents
+
+- [Ingesting Data with Azure Functions](#ingesting-data-with-azure-functions)
+  - [Table of contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [Ingestion logic](#ingestion-logic)
+  - [How to use](#how-to-use)
+    - [Sample Request](#sample-request)
+- [Steps to reproduce](#steps-to-reproduce)
+  - [Clone repo](#clone-repo)
+  - [(Optional) Create Infrastructure](#optional-create-infrastructure)
+  - [Deploy function to Azure](#deploy-function-to-azure)
+    - [Steps](#steps)
+    - [Automate deployment](#automate-deployment)
+
 ## Requirements
 * Terraform (for infra setup)
 * Azure CLI (for infra setup)
