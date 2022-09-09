@@ -1,5 +1,5 @@
 resource "azurerm_service_plan" "service_plan_linux" {
-  name                = "service-plan-${var.project_initials}-01"
+  name                = "service-plan-${var.PROJECT_NAME}-01"
   resource_group_name = azurerm_resource_group.project.name
   location            = azurerm_resource_group.project.location
   os_type             = "Linux"
@@ -7,7 +7,7 @@ resource "azurerm_service_plan" "service_plan_linux" {
 }
 
 resource "azurerm_linux_function_app" "func" {
-  name                = "func-${var.project_initials}-01"
+  name                = "func-${var.PROJECT_NAME}-01"
   resource_group_name = azurerm_resource_group.project.name
   location            = azurerm_resource_group.project.location
 

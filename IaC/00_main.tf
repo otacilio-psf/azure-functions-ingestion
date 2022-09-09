@@ -5,10 +5,8 @@ variable "SP_TERRAFORM_ID" {}
 variable "SP_TERRAFORM_SECRET" {}
 variable "SP_DATA_LAKE_CONTRIBUTOR_ID" {}
 variable "SP_DATA_LAKE_CONTRIBUTOR_SECRET" {}
-
-# tfvars file
-variable "project_initials" {}
-variable "location" {
+variable "PROJECT_NAME" {}
+variable "LOCATION" {
   default = "West Europe"
 }
 
@@ -37,6 +35,6 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "project" {
-  name     = "rg-${var.project_initials}-01"
-  location = var.location
+  name     = "rg-${var.PROJECT_NAME}-01"
+  location = var.LOCATION
 }

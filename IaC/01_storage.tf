@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "stga_datalake" {
-  name                     = "adls2${var.project_initials}01"
+  name                     = "adls2${replace(var.PROJECT_NAME, "-", "")}01"
   resource_group_name      = azurerm_resource_group.project.name
   location                 = azurerm_resource_group.project.location
   account_tier             = "Standard"
@@ -16,25 +16,17 @@ resource "azurerm_storage_account" "stga_datalake" {
 resource "azurerm_storage_data_lake_gen2_filesystem" "datalake" {
   name               = "datalake"
   storage_account_id = azurerm_storage_account.stga_datalake.id
-
-  ace {
-    scope = "access"
-    type = "user"
-    id = var.SP_DATA_LAKE_CONTRIBUTOR_ID
-    permissions  = "rwx"
-  }
-
-  ace {
-    scope = "default"
-    type = "user"
-    id = var.SP_DATA_LAKE_CONTRIBUTOR_ID
-    permissions  = "rwx"
-  }
-
 }
 
+resource "azurerm_role_assignment" "rbac_dl_contributor" {
+  scope                = azurerm_storage_account.stga_datalake.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = var.SP_DATA_LAKE_CONTRIBUTOR_ID
+}
+
+
 resource "azurerm_storage_account" "stga_funtion" {
-  name                     = "blob${var.project_initials}functionapp01"
+  name                     = "blob${replace(var.PROJECT_NAME, "-", "")}fapp01"
   resource_group_name      = azurerm_resource_group.project.name
   location                 = azurerm_resource_group.project.location
   account_tier             = "Standard"
