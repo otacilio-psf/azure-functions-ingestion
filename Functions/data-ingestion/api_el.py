@@ -7,12 +7,22 @@ import time
 import os
 import io
 
+tenant_id=os.getenv('AZURE_STORAGE_TENANT_ID')
+client_id=os.getenv('AZURE_STORAGE_CLIENT_ID')
+
+logging.info(tenant_id)
+logging.info(client_id)
+
+
 def get_file_system():
-    credential = ClientSecretCredential(
-        tenant_id=os.getenv('AZURE_STORAGE_TENANT_ID'),
-        client_id=os.getenv('AZURE_STORAGE_CLIENT_ID'),
-        client_secret=os.getenv('AZURE_STORAGE_SECRET_ID')
-    )
+    try:
+        credential = ClientSecretCredential(
+            tenant_id=tenant_id,
+            client_id=client_id,
+            client_secret=os.getenv('AZURE_STORAGE_SECRET_ID')
+        )
+    except Exception as e:
+        logging.error(e)
 
     account_name = os.getenv('AZURE_STORAGE_ACCOUNT_NAME')
     container_name = os.getenv('AZURE_STORAGE_CONTAINER_NAME')
