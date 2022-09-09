@@ -14,9 +14,11 @@ The main goal of this repository is demonstrate how you can use Azure Functions 
 
 ## Ingestion logic
 
-We use `requests` and `azure.storage.filedatalake` lib to read from the API and write it on Data lake.
+Are used `requests` and `azure.storage.filedatalake` libs to read from the API and write it on Data lake.
 
 For more information please check: [ingestion code](./Functions/data-ingestion/api_el.py)
+
+**Note:** Azure Function context is read-only, to handle the data is used `io` lib to make it in memory
 
 ## How to use
 
