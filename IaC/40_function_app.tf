@@ -17,7 +17,7 @@ resource "azurerm_linux_function_app" "func" {
 
   app_settings = {
     AZURE_STORAGE_TENANT_ID      = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault.akv.vault_uri}secrets/${azurerm_key_vault_secret.datalake_access_sp_tenant.name}/)"
-    AZURE_STORAGE_CLIENT_ID      = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault.akv.vault_uri}secrets/${azurerm_key_vault_secret.datalake_access_sp_id.name}/)"
+    AZURE_STORAGE_CLIENT_ID      = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault.akv.vault_uri}secrets/${azurerm_key_vault_secret.datalake_access_sp_app_id.name}/)"
     AZURE_STORAGE_CLIENT_SECRET  = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault.akv.vault_uri}secrets/${azurerm_key_vault_secret.datalake_access_sp_secret.name}/)"
     AZURE_STORAGE_ACCOUNT_NAME   = "${azurerm_storage_account.stga_datalake.name}"
     AZURE_STORAGE_CONTAINER_NAME = "${azurerm_storage_data_lake_gen2_filesystem.datalake.name}"
